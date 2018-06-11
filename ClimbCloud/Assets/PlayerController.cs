@@ -20,7 +20,9 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyDown(KeyCode.Space) && this.rigid2D.velocity.y == 0)
         {
+            this.animator.SetTrigger("JumpTrigger");
             this.rigid2D.AddForce(transform.up * this.jumpForce);
+
         }
 
         int key = 0;
@@ -34,16 +36,28 @@ public class PlayerController : MonoBehaviour {
             this.rigid2D.AddForce(transform.right * key * this.walkForce);
         }
 
+        //反転対策
         if (key != 0)
         {
             transform.localScale = new Vector3(key, 1, 1);
         }
 
-        this.animator.speed = speedx / 2.0f;
+        //プレイヤーの速度に応じてアニメーション速度を変える
+        if(this.rigid2D.velocity.y == 0)
+        {
+            this.animator.speed = speedx / 2.0f;
+        }
+        else
+        {
+            this.animator.speed = 1.0f;
+        }
+
+
+        
 
         if(transform.position.y < -10)
         {
-            SceneManager.LoadScene("GameScene");
+            SceneManager.LoadScene("GameScene1");
         }
 	}
 
