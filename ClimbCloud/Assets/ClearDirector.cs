@@ -4,22 +4,28 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ClearDirector : MonoBehaviour {
-    int stage = 1;
+    StageNumber stage = new StageNumber();
 
-	// Update is called once per frame
-	void Update () {
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update () {
         if (Input.GetMouseButtonDown(0))
         {
-            if (stage == 1)
+            if (stage.GetStageNumber() == 1)
             {
                 SceneManager.LoadScene("GameScene2");
-                stage++;
+                stage.NextStageNum();
             }
             else
             {
                 SceneManager.LoadScene("GameScene1");
-                stage = 1;
+                stage.InputStageNum(1);
             }
         }
 	}
+
 }

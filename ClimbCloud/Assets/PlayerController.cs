@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour {
     Rigidbody2D rigid2D;
     Animator animator;
+    StageNumber stage = new StageNumber();
     float jumpForce = 680.0f;
     float walkForce = 30.0f;
     float maxWalkSpeed = 2.0f;
@@ -14,7 +15,8 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
         this.rigid2D = GetComponent<Rigidbody2D>();
         this.animator = GetComponent<Animator>();
-	}
+        
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -22,7 +24,6 @@ public class PlayerController : MonoBehaviour {
         {
             this.animator.SetTrigger("JumpTrigger");
             this.rigid2D.AddForce(transform.up * this.jumpForce);
-
         }
 
         int key = 0;
@@ -57,7 +58,14 @@ public class PlayerController : MonoBehaviour {
 
         if(transform.position.y < -10)
         {
-            SceneManager.LoadScene("GameScene1");
+            if (stage.GetStageNumber() == 1)
+            {
+                SceneManager.LoadScene("GameScene1");
+            }
+            else
+            {
+                SceneManager.LoadScene("GameScene2");
+            }
         }
 	}
 
